@@ -1,38 +1,23 @@
-import 'package:flame/palette.dart';
 import 'package:flutter/material.dart';
-// ignore: import_of_legacy_library_into_null_safe
-import 'package:flame/game.dart';
+import 'package:shooting_game/shooting.dart';
 
-void main() {
-  final myGame = MyGame();
-  runApp(
-    GameWidget(
-      game: myGame,
-    ),
-  );
-}
+void main() => runApp(MaterialApp(
+      home: MainPage(),
+    ));
 
-class MyGame extends Game {
-  static const int squareSpeed = 400;
-  late Rect squarePos;
-  int squareDirection = 1;
-
-  static final squarePaint = BasicPalette.white.paint();
+class MainPage extends StatelessWidget {
+  final shooting = Shooting();
   @override
-  Future<void> onLoad() async {
-    squarePos = Rect.fromLTWH(0, 0, 100, 100);
-  }
-
-  @override
-  void update(double dt) {
-    squarePos = squarePos.translate(squareSpeed * squareDirection * dt, 0);
-    if (squareDirection == 1 && squarePos.right > size.x)
-      squareDirection = -1;
-    else if (squareDirection == -1 && squarePos.left < 0) squareDirection = 1;
-  }
-
-  @override
-  void render(Canvas canvas) {
-    canvas.drawRect(squarePos, squarePaint);
+  Widget build(BuildContext context) {
+    return Center(
+        child: ElevatedButton(
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => shooting),
+        );
+      },
+      child: Text("test"),
+    ));
   }
 }
