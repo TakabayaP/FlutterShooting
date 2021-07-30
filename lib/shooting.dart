@@ -8,9 +8,11 @@ class Shooting extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ShootingGame game = ShootingGame(onEnd: () {
-      Navigator.pop(context);
-    });
+    ShootingGame game = ShootingGame(
+        viewportResolution: Vector2(1080, 1920), //Viewport の解像度の値渡し
+        onEnd: () {
+          Navigator.pop(context);
+        });
     //constructor
     void onEventKey(RawKeyEvent event) {
       game.onKeyEvent(event);
