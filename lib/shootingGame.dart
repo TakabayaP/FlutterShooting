@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flame/game.dart';
 import 'package:flame/keyboard.dart';
-import 'package:flame/parallax.dart';
-import 'package:flame/components.dart';
 import 'package:shooting_game/components/background.dart';
 
 class ShootingGame extends BaseGame with KeyboardEvents {
@@ -21,9 +19,7 @@ class ShootingGame extends BaseGame with KeyboardEvents {
   var image, player, parallaxComponent;
   @override
   Future<void> onLoad() async {
-    final _bg = await loadParallaxComponent(
-      [ParallaxImageData('background1.png')],
-    );
+    final _bg = Background();
     add(_bg);
   }
 
