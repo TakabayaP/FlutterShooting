@@ -19,7 +19,7 @@ class ShootingGame extends BaseGame with KeyboardEvents {
   var image, player, parallaxComponent;
   @override
   Future<void> onLoad() async {
-    final _bg = Background();
+    final _bg = Background("background1.png");
     add(_bg);
   }
 
