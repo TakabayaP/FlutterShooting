@@ -17,7 +17,7 @@ class MainPage extends StatelessWidget {
           MaterialPageRoute(builder: (context) => shooting),
         );
       },
-      child: Text("test"),
+      child: Text("Start"),
     ));
   }
 }
