@@ -1,8 +1,10 @@
 import 'dart:ui';
+import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'package:flame/game.dart';
 import 'package:flame/keyboard.dart';
 import 'package:shooting_game/components/background.dart';
+import 'package:shooting_game/components/player.dart';
 
 class ShootingGame extends BaseGame with KeyboardEvents {
   final VoidCallback onEnd;
@@ -10,8 +12,7 @@ class ShootingGame extends BaseGame with KeyboardEvents {
   ShootingGame({required this.onEnd, required this.viewportResolution});
   @override
   void onAttach() {
-    //onEnd();
-    //add(Background());
+    super.onAttach();
   }
 
   var image, player, parallaxComponent;
@@ -20,17 +21,28 @@ class ShootingGame extends BaseGame with KeyboardEvents {
     viewport = FixedResolutionViewport(viewportResolution);
     //viewport に FixedResolutionViewportを代入すれば値が固定される
     //camera 周りがよくわからん とりあえず無視
-    final _bg = Background("background1.png");
-    add(_bg);
+    add(Background("background1.png"));
+    //背景を追加
+    final _player = Player(
+        sprite: await loadSprite("player1.png"),
+        size: Vector2(100, 100),
+        position: Vector2(100, 300));
+    add(_player);
+    //プレイヤーを追加 もう少しきれいな実装考えたい
   }
 
-  @override
   void onKeyEvent(e) {
     //final bool isKeyDown = e is RawKeyDownEvent;
     //print(" Key: ${e.data.keyLabel} - isKeyDown: $isKeyDown");
     if (e.data.keyLabel == "q") onEnd();
   }
 
+  @override
+  void render(Canvas canvas) {
+    // TODO: implement render
+    //player.render(canvas);
+    super.render(canvas);
+  }
   //コールバックすることで子から親の関数を呼び出すことができる
   //BaseGame を Stateless Widget でラップすることで Navigator を使用可能に
 }
