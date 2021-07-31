@@ -4,13 +4,13 @@ import 'package:flutter/widgets.dart';
 import 'package:shooting_game/shootingGame.dart';
 
 class Background extends ParallaxComponent with HasGameRef<ShootingGame> {
-  String pictureName;
-  Background(this.pictureName);
+  String imgName;
+  Background(this.imgName) : super(priority: -1);
   //contructor でプロパティの設定ができる
   @override
   Future<void> onLoad() async {
     parallax = await gameRef.loadParallax([
-      ParallaxImageData(pictureName),
+      ParallaxImageData(imgName),
     ],
         repeat: ImageRepeat.repeatY,
         baseVelocity: Vector2(0, 500),
