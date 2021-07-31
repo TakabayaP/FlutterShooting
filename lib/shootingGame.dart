@@ -3,6 +3,7 @@ import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'package:flame/game.dart';
 import 'package:flame/keyboard.dart';
+import 'package:flutter/services.dart';
 import 'package:shooting_game/components/background.dart';
 import 'package:shooting_game/components/player.dart';
 
@@ -15,7 +16,7 @@ class ShootingGame extends BaseGame with KeyboardEvents {
     super.onAttach();
   }
 
-  var image, player, parallaxComponent;
+  late final _player;
   @override
   Future<void> onLoad() async {
     viewport = FixedResolutionViewport(viewportResolution);
@@ -23,7 +24,7 @@ class ShootingGame extends BaseGame with KeyboardEvents {
     //camera 周りがよくわからん とりあえず無視
     add(Background("background1.png"));
     //背景を追加
-    final _player = Player(
+    _player = Player(
         sprite: await loadSprite("player1.png"),
         size: Vector2(100, 100),
         position: Vector2(100, 300));
@@ -32,9 +33,25 @@ class ShootingGame extends BaseGame with KeyboardEvents {
   }
 
   void onKeyEvent(e) {
-    //final bool isKeyDown = e is RawKeyDownEvent;
-    //print(" Key: ${e.data.keyLabel} - isKeyDown: $isKeyDown");
+    final bool isKeyDown = e is RawKeyDownEvent;
+    print(" Key:${e.data.keyLabel}- isKeyDown: $isKeyDown");
     if (e.data.keyLabel == "q") onEnd();
+    _player.onKeyEvent(e);
+    /*
+    switch (e.data.keyLabel) {
+        case "w":
+          _player.moveUp();
+          break;
+        case "a":
+          _player.moveLeft();
+          break;
+        case "s":
+          _player.moveDown();
+          break;
+        case "d":
+          _player.moveRight();
+          break;
+      }*/
   }
 
   @override
