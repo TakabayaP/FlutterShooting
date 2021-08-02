@@ -22,10 +22,11 @@ class ShootingGame extends BaseGame with KeyboardEvents {
     viewport = FixedResolutionViewport(viewportResolution);
     //viewport に FixedResolutionViewportを代入すれば値が固定される
     //camera 周りがよくわからん とりあえず無視
+    await images.loadAll(["player1.png", "bullet1.png"]);
     add(Background("background1.png"));
     //背景を追加
     _player = Player(
-        sprite: await loadSprite("player1.png"),
+        sprite: Sprite(images.fromCache("player1.png")),
         size: Vector2(100, 100),
         position: Vector2(100, 300));
     add(_player);

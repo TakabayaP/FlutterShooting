@@ -44,7 +44,7 @@ class Player extends SpriteComponent with HasGameRef<ShootingGame> {
 
   @override
   Future<void>? onLoad() async {
-    _bulletSprite = Sprite(await Flame.images.load('bullet1.png'));
+    _bulletSprite = Sprite(gameRef.images.fromCache("bullet1.png"));
     return super.onLoad();
   }
 
