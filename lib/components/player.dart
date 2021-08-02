@@ -28,6 +28,7 @@ class Player extends SpriteComponent with HasGameRef<ShootingGame> {
   var _isKeyDown = [false, false, false, false, false],
       _moveDir = Vector2.zero();
   late final _bulletSprite;
+  double _shootInterval = 100;
   Player({
     required Sprite sprite,
     required Vector2 position,
@@ -53,13 +54,14 @@ class Player extends SpriteComponent with HasGameRef<ShootingGame> {
     for (var i = 0; i < 4; i++) {
       if (_isKeyDown[i]) _moveDir += _moveVector[i];
     }
-    if (_isKeyDown[4]) {
+    if (_isKeyDown[4] && _shootInterval > 0.25) {
       gameRef
           .add(Bullet(position: this.position.clone(), sprite: _bulletSprite));
+      _shootInterval = 0;
     }
+    _shootInterval += dt;
     this.position += _moveDir.normalized() * 1000 * dt;
     // TODO: implement update
-    print(this.position);
     super.update(dt);
   }
 }

@@ -37,21 +37,6 @@ class ShootingGame extends BaseGame with KeyboardEvents {
     print(" Key:${e.logicalKey}- isKeyDown: $isKeyDown");
     if (e.data.keyLabel == "q") onEnd();
     _player.onKeyEvent(e);
-    /*
-    switch (e.data.keyLabel) {
-        case "w":
-          _player.moveUp();
-          break;
-        case "a":
-          _player.moveLeft();
-          break;
-        case "s":
-          _player.moveDown();
-          break;
-        case "d":
-          _player.moveRight();
-          break;
-      }*/
   }
 
   @override
