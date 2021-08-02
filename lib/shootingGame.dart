@@ -34,7 +34,7 @@ class ShootingGame extends BaseGame with KeyboardEvents {
 
   void onKeyEvent(e) {
     final bool isKeyDown = e is RawKeyDownEvent;
-    print(" Key:${e.data.keyLabel}- isKeyDown: $isKeyDown");
+    print(" Key:${e.logicalKey}- isKeyDown: $isKeyDown");
     if (e.data.keyLabel == "q") onEnd();
     _player.onKeyEvent(e);
     /*
@@ -57,7 +57,6 @@ class ShootingGame extends BaseGame with KeyboardEvents {
   @override
   void render(Canvas canvas) {
     // TODO: implement render
-    //player.render(canvas);
     super.render(canvas);
   }
   //コールバックすることで子から親の関数を呼び出すことができる

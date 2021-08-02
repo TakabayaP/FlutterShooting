@@ -1,8 +1,11 @@
 import 'package:flame/components.dart';
+import 'package:flame/flame.dart';
 import 'package:flame/sprite.dart';
 import 'package:flutter/services.dart';
+import 'package:shooting_game/components/bullet.dart';
+import 'package:shooting_game/shootingGame.dart';
 
-class Player extends SpriteComponent {
+class Player extends SpriteComponent with HasGameRef<ShootingGame> {
   static const Keyconfig = {
     "up": "w",
     "left": "a",
@@ -21,8 +24,10 @@ class Player extends SpriteComponent {
         Vector2(0, 1),
         Vector2(1, 0)
       ];
-  var _isKeyDown = [false, false, false, false], _moveDir = Vector2.zero();
 
+  var _isKeyDown = [false, false, false, false, false],
+      _moveDir = Vector2.zero();
+  late final _bulletSprite;
   Player({
     required Sprite sprite,
     required Vector2 position,
@@ -32,6 +37,14 @@ class Player extends SpriteComponent {
     for (var i = 0; i < 4; i++) {
       if (e.data.keyLabel == _moveKey[i]) _isKeyDown[i] = e is RawKeyDownEvent;
     }
+    if (e.logicalKey == LogicalKeyboardKey.space)
+      _isKeyDown[4] = e is RawKeyDownEvent;
+  }
+
+  @override
+  Future<void>? onLoad() async {
+    _bulletSprite = Sprite(await Flame.images.load('bullet1.png'));
+    return super.onLoad();
   }
 
   @override
@@ -40,8 +53,13 @@ class Player extends SpriteComponent {
     for (var i = 0; i < 4; i++) {
       if (_isKeyDown[i]) _moveDir += _moveVector[i];
     }
+    if (_isKeyDown[4]) {
+      gameRef
+          .add(Bullet(position: this.position.clone(), sprite: _bulletSprite));
+    }
     this.position += _moveDir.normalized() * 1000 * dt;
     // TODO: implement update
+    print(this.position);
     super.update(dt);
   }
 }
