@@ -24,7 +24,7 @@ class Player extends SpriteComponent with HasGameRef<ShootingGame> {
         Vector2(0, 1),
         Vector2(1, 0)
       ];
-
+  final _playerSpeed = 700.0;
   var _isKeyDown = [false, false, false, false, false],
       _moveDir = Vector2.zero();
   late final _bulletSprite;
@@ -60,7 +60,7 @@ class Player extends SpriteComponent with HasGameRef<ShootingGame> {
       _shootInterval = 0;
     }
     _shootInterval += dt;
-    this.position += _moveDir.normalized() * 1000 * dt;
+    this.position += _moveDir.normalized() * _playerSpeed * dt;
     // TODO: implement update
     super.update(dt);
   }
