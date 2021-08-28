@@ -13,7 +13,7 @@ class Background extends ParallaxComponent with HasGameRef<ShootingGame> {
       ParallaxImageData(imgName),
     ],
         repeat: ImageRepeat.repeatY,
-        baseVelocity: Vector2(0, 500),
+        baseVelocity: Vector2(0, -1000),
         fill: LayerFill.width);
   }
   //多分あとでもっと高度な背景クラスを作る(複数枚の背景を重ねて異なる速さで動かすとか)
